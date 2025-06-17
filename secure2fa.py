@@ -34,8 +34,8 @@ def register():
     secret = pyotp.random_base32()
     users[username] = {'password': hashed_pw, '2fa_secret': secret}
     save_users(users)
-    print("\n✅ Registration successful.")
-    print(f"🔑 2FA Secret (store in your Authenticator App): {secret}")
+    print("\n Registration successful.")
+    print(f" 2FA Secret (store in your Authenticator App): {secret}")
 
 def login():
     users = load_users()
@@ -45,19 +45,19 @@ def login():
         return
     password = input("Password: ")
     if not verify_password(password, users[username]['password']):
-        print("❌ Incorrect password.")
+        print(" Incorrect password.")
         return
     otp = input("Enter 2FA OTP: ")
     totp = pyotp.TOTP(users[username]['2fa_secret'])
     if totp.verify(otp):
-        print("✅ Login successful.")
+        print(" Login successful.")
     else:
-        print("❌ Invalid OTP.")
+        print(" Invalid OTP.")
 
 def menu():
     print("""
 ===================
-  🔐 Secure2FA CLI
+  Secure2FA CLI
 ===================
 1. Register
 2. Login
